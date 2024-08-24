@@ -1,8 +1,11 @@
-type Watcher = {
-  on(eventName: string, callback: (oldVal: any, newVal: any) => void): void,
+type Watcher<T> = {
+  on(
+    eventName: `${keyof T & string}Changed`,
+    callback: (oldVal: any, newVal: any) => void,
+  ): void,
 }
 
-declare function watch(obj: object): Watcher;
+declare function watch<T>(obj: T): Watcher<T>;
 
 const personWatcher = watch({
   firstName: 'zhang',
@@ -11,4 +14,4 @@ const personWatcher = watch({
   sex: '男'
 });
 
-personWatcher.on('firstNameChanged', (oldVal, newVal) => {});
+personWatcher.on('ageChanged', (oldVal, newVal) => {});

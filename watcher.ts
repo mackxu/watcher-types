@@ -1,7 +1,7 @@
 type Watcher<T> = {
-  on(
-    eventName: `${keyof T & string}Changed`,
-    callback: (oldVal: any, newVal: any) => void,
+  on<K extends keyof T>(
+    eventName: `${K & string}Changed`,
+    callback: (oldVal: T[K], newVal: T[K]) => void,
   ): void,
 }
 
@@ -14,4 +14,4 @@ const personWatcher = watch({
   sex: '男'
 });
 
-personWatcher.on('ageChanged', (oldVal, newVal) => {});
+personWatcher.on('sexChanged', (oldVal, newVal) => {});
